@@ -1,0 +1,2 @@
+# practica
+Practica curso JS
