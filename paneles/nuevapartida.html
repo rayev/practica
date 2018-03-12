@@ -19,49 +19,31 @@
 
 				<label>Nombre de usuario
 					<input type="text" id="campoNombre">
-					<div class="errorNombre">
-						<p id="inputUsuario"></p>
-					</div>
 				</label>
 				<br><br>
 
 				<label>Contraseña
 					<input type="password" id="campoPwd1">
-					<div class="errorPwd1">
-						<p id="inputPwd1"></p>
-					</div>
 				</label>
 				<br><br>
 
 				<label>Repite la contraseña
 					<input type="password" id="campoPwd2">
-					<div class="errorPwd2">
-						<p id="inputPwd2"></p>
-					</div>
 				</label>
 				<br><br>
 
 				<label>Email
 					<input type="text" id="campoEmail">
-					<div class="errorMail">
-						<p id="inputMail"></p>
-					</div>
 				</label>
 				<br><br>
 
 				<label>DNI
 					<input type="text" id="campoDNI">
-					<div class="errorDni">
-						<p id="inputDni"></p>
-					</div>
 				</label>
 				<br><br>
 
 				<label>Fecha de nacimiento
 					<input type="text" id="campoFecha">
-					<div class="errorFecha">
-						<p id="inputFecha"></p>
-					</div>
 				</label>
 				<br><br>
 
@@ -70,9 +52,6 @@
 					<label><input type="radio" name="pais" value="MX">Mexico</label>
 					<label><input type="radio" name="pais" value="AR">Argentina</label>
 					<label><input type="radio" name="pais" value="XX">Otro</label>	
-					<div class="errorPais">
-						<p id="radioPais"></p>
-					</div>
 				<br><br>
 
 				<label>Forma de pago preferente
@@ -82,27 +61,23 @@
 						<option>Tarjeta de crédito</option>
 						<option>Tarjeta de débito</option>
 					</select>
-					<div class="errorPago">
-						<p id="selectPago"></p>
-					</div>
 				</label>
 				<br><br>
 
 				<small>
 					<input type="checkbox" id="checkCondiciones"> Acepto las condiciones del servicio
-					<div class="errorCondiciones">
-						<p id="inputCondiciones"></p>
-					</div>
 				</small>
 				<br><br>
 
 			</fieldset>
 
-			<div id="errores"></div>
+			<div id="errores" class="noVisible"></div>
 			
 		</form>
 
-		<button id="validarFormularioPartida">COMENZAR PARTIDA</button>
+		<div>
+			<button id="validarFormularioPartida">COMENZAR PARTIDA</button>
+		</div>
 
 		<div id="alerta"></div>
 

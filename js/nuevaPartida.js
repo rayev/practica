@@ -66,10 +66,6 @@ document.getElementById('validarFormularioPartida').onclick = function() {
 	if ( nombreUsuario === null || password1 === null || password2 === null || mail === null || dni === null || fechaNacimiento === null || pais === null || indicePago === null || condicionesServicio === null) {
 
 		alert("No se enviaron los datos. Por favor, inténtelo de nuevo");
-		// const inputFormulario = document.getElementsByTagName('input');
-		// for (input of inputFormulario) {
-		// 	input.className += "error"; 
-		// }
 		return false;
 
 	} else {
@@ -78,151 +74,97 @@ document.getElementById('validarFormularioPartida').onclick = function() {
 		//Comprobamos que el nombre de Usuario, no tiene espacios es mayor de 6 digitos
 		if ( /^\s+$/.test(nombreUsuario) ||  nombreUsuario.length < 6 ) {
 
-			//alert("El campo 'Nombre Usuario' no es correcto. Es obligatorio, de mínimo 6 letras.");
-			const txtUsuario = document.getElementById('inputUsuario'); 
-			txtUsuario.innerText = "El campo 'Nombre Usuario' no es correcto. Es obligatorio y mínimo de 6 letras.";
-			let temp = document.getElementById('errores');
-			temp.innerText = "El campo 'Nombre Usuario' no es correcto. Es obligatorio y mínimo de 6 letras.";
-			// if ( txtUsuario.className === "" ){
-			// 	txtUsuario.className = "error";
-			// }
-			const divUsuario = document.getElementsByClassName('errorNombre');
-			//divUsuario[0].style.display = 'block';
-			asignarClasesError(txtUsuario, divUsuario);
-			// todo_correcto = false
+			let errorNombreUsuario = "El campo 'Nombre Usuario' no es correcto. Es obligatorio y mínimo de 6 letras.";
+			mostrarError(errorNombreUsuario);
 			return todo_correcto;
 
 		}
 		else if ( password1.length < 6 || !/[a-z]/.test(password1) || !/[A-Z]/.test(password1) || !/[0-9]/.test(password1) ){
 
-			//alert("El campo 'Contraseña' no es correcto. Es obligatorio, de mínimo 6 caracteres, y debe contener una mayúscula, una minúscula y un dígito");
-			const txtPwd1 = document.getElementById('inputPwd1');
-			txtPwd1.innerText = "El campo 'Contraseña' no es correcto. Es obligatorio, de mínimo 6 caracteres, y debe contener una mayúscula, una minúscula y un dígito";
-			// if ( txtPwd1.className === "" ){
-			// 	txtPwd1.className = "error";
-			// }
-			txtPwd1.className = "error";
-			const divPwd1 = document.getElementsByClassName("errorPwd1");
-			// divPwd1[0].style.display = 'block';
-			asignarClasesError(txtPwd1, divPwd1);
-			// todo_correcto = false
+			let errorPassword = "El campo 'Contraseña' no es correcto. Es obligatorio, de mínimo 6 caracteres, y debe contener una mayúscula, una minúscula y un dígito";
+			mostrarError(errorPassword);
 			return todo_correcto;
 		
-		}  
+		}
 		else if ( password1 != password2 ){
 
-			//alert("Las contraseñas no coinciden");
-			const txtPwd2 = document.getElementById('inputPwd2');
-			txtPwd2.innerText = "Las contraseñas no coinciden";
-			// txtPwd2.className = "error";
-			const divPwd2 = document.getElementsByClassName("errorPwd2");
-			// divPwd2[0].style.display = 'block';
-			asignarClasesError(txtPwd2, divPwd2);
-			// todo_correcto = false
+			let passwordDiferentes = "Las contraseñas no coinciden";
+			mostrarError(passwordDiferentes);
 			return todo_correcto;
 
 		}
 		else if ( !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/.test(mail) ){
 
-			//alert("El campo 'Email' no es correcto. Es obligatorio, y debes indicar una '@' y un '.'");
-			const txtMail = document.getElementById('inputMail');
-			txtMail.innerText = "El campo 'Email' no es correcto. Es obligatorio, y debes indicar una '@' y un '.'";
-			// txtMail.className = "error";
-			const divMail = document.getElementsByClassName("errorMail");
-			// divMail[0].style.display = 'block';
-			asignarClasesError(txtMail, divMail);
-			// todo_correcto = false
+			let errorMail = "El campo 'Email' no es correcto. Es obligatorio, y debes indicar una '@' y un '.'";
+			mostrarError(errorMail);
 			return todo_correcto;
 
 		}
 		else if (  !validarDni(dni) ){
 
-			//alert("El campo 'DNI' es obligatorio, y el formato correcto debe ser 12345678X con la letra mayuscula.");
-			const txtDni = document.getElementById('inputDni');
-			txtDni.innerText = "El campo 'DNI' es obligatorio, y el formato correcto debe ser 12345678X con la letra mayuscula.";
-			const divDni = document.getElementsByClassName('errorDni');
-			asignarClasesError(txtDni, divDni);
-			return	todo_correcto;
+			let errorDni = "El campo 'DNI' es obligatorio, y el formato correcto debe ser 12345678X con la letra mayuscula.";
+			mostrarError(errorDni);
+			return todo_correcto;
 
 		} 
 		else if ( !/^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$/.test(fechaNacimiento) ) {
 
-			// alert("La fecha de nacimiento no es correcta. El formato debe ser dd/mm/aaaa, separados por barra(/), guion-medio (-) o punto(.)");
-			const textFechaNacimiento = document.getElementById('inputFecha');
-			textFechaNacimiento.innerText = "La fecha de nacimiento no es correcta. El formato debe ser dd/mm/aaaa, separados por barra(/), guion-medio (-) o punto(.)";
-			const divFecha = document.getElementsByClassName("errorFecha");
-			asignarClasesError(textFechaNacimiento, divFecha);
+			let errorFecha = "La fecha de nacimiento no es correcta. El formato debe ser dd/mm/aaaa, separados por barra(/), guion-medio (-) o punto(.)";
+			mostrarError(errorFecha);
 			return todo_correcto;
 
 		}
 		else if ( objetoFechaNacimiento > objetoFechaMinima ) {
 
-			//alert("La fecha de nacimiento no es correcta. No puedes tener menos de 18 años.");
-			const textMenorEdad = document.getElementById('inputFecha');
-			textMenorEdad.innerText = "La fecha de nacimiento no es correcta. No puedes tener menos de 18 años.";
-			const divMenorEdad = document.getElementsByClassName('errorFecha');
-			asignarClasesError(textMenorEdad, divMenorEdad);
+			let menorEdad = "La fecha de nacimiento no es correcta. No puedes tener menos de 18 años.";
+			mostrarError(menorEdad);
 			return todo_correcto;
 
 		}
 		else if ( !paisMarcado ){
 
-			//alert("Debe marcar país de residencia.");
-			const textPais = document.getElementById('radioPais');
-			textPais.innerText = "Debe marcar país de residencia.";
-			const divPais = document.getElementsByClassName('errorPais');
-			asignarClasesError(textPais, divPais);
+			let errorPais = "Debe marcar país de residencia.";
+			mostrarError(errorPais);
 			return todo_correcto;
+
 		}
 		else if ( indicePago === 0 ){
 
-			//alert("Debes de seleccionar una forma de pago.");
-			const txtFormaPago = document.getElementById('selectPago');
-			txtFormaPago.innerText = "Debes de seleccionar una forma de pago.";
-			const divPago = document.getElementsByClassName('errorPago');
-			asignarClasesError(txtFormaPago, divPago);
+			let errorPago = "Debes de seleccionar una forma de pago.";
+			mostrarError(errorPago);
 			return todo_correcto;
 
 		}
 		else if ( !condicionesServicio ) {
 
-			//alert("Debes aceptar las condiciones de servicio.");
-			const txtCondiciones = document.getElementById('inputCondiciones');
-			txtCondiciones.innerText = "Debes aceptar las condiciones de servicio.";
-			const divCondiciones = document.getElementsByClassName('errorCondiciones');
-			asignarClasesError(txtCondiciones, divCondiciones);
+			let errorCondiciones = "Debes aceptar las condiciones de servicio.";
+			mostrarError(errorCondiciones);
 			return todo_correcto;
-
-			}
+		}
 
 	}
 
 	msg('success', '¡Valida el formulario!');
 
 
-	function asignarClasesError(txt, div){
+	function mostrarError(txt) {
+		let divErrores = document.getElementById('errores');
+		divErrores.innerText = txt;
 
-		if ( txt.className === "" ){
-			txt.className = "error";
-		}
-
-		div[0].style.display = 'block';
+		divErrores.classList.remove('noVisible');
+		divErrores.classList.add('visible');
 
 		todo_correcto = false;
-		return todo_correcto;
+		return todo_correcto
 	}
 
 
 	function ocultarErrores(){
+		let divError = document.getElementById('errores');
+		divError.innerText = "";
 
-		let divErrores = document.getElementsByTagName('div');
-		//console.log(divErrores);
-		for (let i of divErrores) {
-			if(i.style.display === 'block'){
-				i.style.display = 'none';
-			}
-		}
-
+		divError.classList.add('noVisible');
+		divError.classList.remove('visible');
 	}
 
 
@@ -233,7 +175,6 @@ document.getElementById('validarFormularioPartida').onclick = function() {
 		if ( /[A-Z]/.test(letra) ){
 			let lockup = 'TRWAGMYFPDXBNJZSQVHLCKE';
 			let valueDni=dni.substr(0,dni.length-1);
-			//let letra=dni.substr(dni.length-1,1).toUpperCase();
 		 
 			if(lockup.charAt(valueDni % 23)==letra){
 				return true;
@@ -244,6 +185,7 @@ document.getElementById('validarFormularioPartida').onclick = function() {
 
 			return false;
 		}
-	}	
+	}
+
 
 }
