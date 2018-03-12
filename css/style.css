@@ -377,3 +377,23 @@ input[type="radio"]{
 #alerta.activa{
     transform: translateY(0);
 }
+
+.errorNombre, .errorPwd1, .errorPwd2, .errorMail, .errorDni, .errorFecha, .errorPais, .errorPago, .errorCondiciones{
+  display:none;
+}
+
+div.errorNombre > p.error, div.errorPwd1 > p.error, div.errorPwd2 > p.error, div.errorMail > p.error, div.errorDni > p.error, div.errorFecha > p.error, div.errorPago > p.error{
+  color: red;
+  text-align: right;
+  padding-bottom: 0px;
+  border-bottom: none;
+  margin: 15px 0px 0px 0px !important;
+}
+
+div.errorPais > p.error, div.errorCondiciones > p.error{
+  color: red;
+  text-align: left;
+  padding-bottom: 0px;
+  border-bottom: none;
+  margin: 10px 0px 0px 0px !important;
+}
