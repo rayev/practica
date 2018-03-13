@@ -150,9 +150,9 @@ document.getElementById('validarFormularioPartida').onclick = function() {
 	function mostrarError(txt) {
 		let divErrores = document.getElementById('errores');
 		divErrores.innerText = txt;
-
-		divErrores.classList.remove('noVisible');
-		divErrores.classList.add('visible');
+		divErrores.className = "error_form"
+		//divErrores.classList.remove('noVisible');
+		//divErrores.classList.add('visible');
 
 		todo_correcto = false;
 		return todo_correcto
@@ -163,8 +163,9 @@ document.getElementById('validarFormularioPartida').onclick = function() {
 		let divError = document.getElementById('errores');
 		divError.innerText = "";
 
-		divError.classList.add('noVisible');
-		divError.classList.remove('visible');
+		// divError.classList.add('noVisible');
+		// divError.classList.remove('visible');
+		divError.classList.remove('error_form');
 	}
 
 

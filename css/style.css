@@ -320,7 +320,7 @@ input[type="radio"]{
   color: white;
   font-weight: bold;
   text-align: center;
-  padding: 10px 0px;
+  
 }
 
 .noVisible{
@@ -328,6 +328,9 @@ input[type="radio"]{
 }
 .visible{
   display: block;
+}
+.error_form{
+  padding: 10px 0px;
 }
 
 #mensajes,#textoResultado{
