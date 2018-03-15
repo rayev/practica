@@ -16,7 +16,7 @@ document.getElementById('nuevaPartida').onclick = function (){
 
     if (!objPartida.iniciada) {
 
-        open("paneles/nuevapartida.html", 'Nueva partida', 'scrollbars=yes,width=700,height=900,toolbar=yes');
+        open("paneles/nuevapartida.html", 'Nueva partida', 'scrollbars=yes,width=700,height=1000,toolbar=yes');
 
 
     } else {
