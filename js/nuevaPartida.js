@@ -5,6 +5,7 @@ document.getElementById('validarFormularioPartida').onclick = function() {
 	//Valor por defecto del formulario, si algo va mal la variable cambiara a false y si todo va correcto abajo devolvera true. (Bandera de validacion)
 	let todo_correcto = true;
 	ocultarErrores();
+	let valorPais;
 
 	//Obtener valores de los input del formulario
 	let nombreUsuario = document.getElementById("campoNombre").value;
@@ -43,6 +44,7 @@ document.getElementById('validarFormularioPartida').onclick = function() {
 	for (var i = 0; i < pais.length; i++) {
 		if ( pais[i].checked ) {
 			paisMarcado = true;
+			valorPais = pais[i].value;
 		}
 	}
 
@@ -58,15 +60,16 @@ document.getElementById('validarFormularioPartida').onclick = function() {
 	let fechaMinima = objetoFechaActual.setYear(objetoFechaActual.getFullYear() - 18);
 	let objetoFechaMinima = new Date(fechaMinima);
 
-	console.log(objetoFechaActual);
+	//console.log(objetoFechaActual);
 
 
 	//Empezamos con la validacion de campos
 	//Copmrobamos que todos los capos no son null
 	if ( nombreUsuario === null || password1 === null || password2 === null || mail === null || dni === null || fechaNacimiento === null || pais === null || indicePago === null || condicionesServicio === null) {
 
-		alert("No se enviaron los datos. Por favor, inténtelo de nuevo");
-		return false;
+		let errorNull = "No se enviaron los datos. Por favor, inténtelo de nuevo";
+		mostrarError(errorNull);
+		return todo_correcto;
 
 	} else {
 
@@ -141,18 +144,43 @@ document.getElementById('validarFormularioPartida').onclick = function() {
 			mostrarError(errorCondiciones);
 			return todo_correcto;
 		}
+		else {
+
+			// Asignamos true a la propiedad 'iniciada' de objeto 'partida', que ya ha sido iniciada
+			opener.objPartida.iniciada = true;
+
+			// Asignamos a la propiedad 'detalles' del objeto 'partida' un sub-objeto con todos los datos de la partida:
+			opener.objPartida.detalles = {
+				fecha: new Date(),
+				usuario: nombreUsuario,          // sustituye cada XXXXXXXXXXXX por la variable que lo almacena
+				contrasenha: password1,
+				email: mail,
+				dni: dni,
+				nacimiento: objetoFechaNacimiento,//fechaNacimiento,
+				residencia: pais.value,
+				pago: textoFormaPago
+			}
+
+			// Podemos hacer comprobaciones de que los datos han sido recibidos en el objeto 'partida'
+			console.log(opener.objPartida.iniciada);        // debe retornar true
+			console.log(opener.objPartida.detalles.email);  // debe retornar el email del usuario
+
+			// Informamos al usuario que la partida se ha guardado correctamente
+			msg('success', 'Partida creada correctamente');			
+
+		}
 
 	}
 
-	msg('success', '¡Valida el formulario!');
+	//msg('success', '¡Valida el formulario!');
 
 
 	function mostrarError(txt) {
 		let divErrores = document.getElementById('errores');
-		divErrores.innerText = txt;
-		divErrores.className = "error_form"
-		//divErrores.classList.remove('noVisible');
-		//divErrores.classList.add('visible');
+		//divErrores.innerText = txt;
+		divErrores.textContent = txt;
+		//divErrores.className = "error_form"
+		divErrores.classList.add('error_form');
 
 		todo_correcto = false;
 		return todo_correcto
@@ -160,30 +188,26 @@ document.getElementById('validarFormularioPartida').onclick = function() {
 
 
 	function ocultarErrores(){
-		let divError = document.getElementById('errores');
-		divError.innerText = "";
-
-		// divError.classList.add('noVisible');
-		// divError.classList.remove('visible');
-		divError.classList.remove('error_form');
+		let divErrores = document.getElementById('errores');
+		divErrores.classList.remove('error_form');
+		divErrores.innerText = "";
 	}
 
 
 	function validarDni(dni){
 
-		let letra=dni.substr(dni.length-1,1);
+		let letra = dni.substr(dni.length-1,1);
 
 		if ( /[A-Z]/.test(letra) ){
-			let lockup = 'TRWAGMYFPDXBNJZSQVHLCKE';
-			let valueDni=dni.substr(0,dni.length-1);
+			let digitoControl = 'TRWAGMYFPDXBNJZSQVHLCKE';
+			let valorDni = dni.substr( 0, dni.length-1 );
 		 
-			if(lockup.charAt(valueDni % 23)==letra){
+			if ( digitoControl.charAt( valorDni % 23 ) === letra ) {
 				return true;
 			}
 			return false;
 
 		} else{
-
 			return false;
 		}
 	}

@@ -320,15 +320,8 @@ input[type="radio"]{
   color: white;
   font-weight: bold;
   text-align: center;
-  
 }
 
-.noVisible{
-  display: none;
-}
-.visible{
-  display: block;
-}
 .error_form{
   padding: 10px 0px;
 }
